@@ -48,11 +48,10 @@ export class TrainerView {
   }
 
   private handleKeyPress(event: KeyboardEvent): void {
-    if (this.isStatisticsShown) {
+    const letter = event.key.toLowerCase();
+    if (this.isStatisticsShown || !/^[a-z]$/.test(letter)) {
       return;
     }
-
-    const letter = event.key.toLowerCase();
 
     if (this.model.isValidLetter(letter)) {
       const letterButtons = Array.from(
