@@ -7,6 +7,7 @@ export class TrainerView {
   private readonly totalQuestionsElem: HTMLElement;
   private readonly answerElem: HTMLElement;
   private readonly lettersElem: HTMLElement;
+  private isStatisticsShown: boolean;
 
   constructor(model: TrainerModel) {
     this.model = model;
@@ -14,6 +15,7 @@ export class TrainerView {
     this.totalQuestionsElem = document.getElementById('total_questions')!;
     this.answerElem = document.getElementById('answer')!;
     this.lettersElem = document.getElementById('letters')!;
+    this.isStatisticsShown = false;
   }
 
   public startTraining(): void {
@@ -46,6 +48,10 @@ export class TrainerView {
   }
 
   private handleKeyPress(event: KeyboardEvent): void {
+    if (this.isStatisticsShown) {
+      return;
+    }
+
     const letter = event.key.toLowerCase();
 
     if (this.model.isValidLetter(letter)) {
@@ -171,10 +177,12 @@ export class TrainerView {
     wordWithMostErrorsElem.innerText =
       this.model.getWordWithMostErrors() || '-';
     statisticsElem.style.display = 'block';
+    this.isStatisticsShown = true;
   }
 
   private hideStatistics(): void {
     const statisticsElem = document.getElementById('statistics')!;
     statisticsElem.style.display = 'none';
+    this.isStatisticsShown = false;
   }
 }
