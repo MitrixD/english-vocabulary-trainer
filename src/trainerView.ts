@@ -38,7 +38,7 @@ export class TrainerView {
       this.restartTraining();
     });
 
-    window.addEventListener('keydown', this.handleKeyPress.bind(this));
+    window.addEventListener('keyup', this.handleKeyPress.bind(this));
   }
 
   private handleLetterClick(event: MouseEvent): void {
